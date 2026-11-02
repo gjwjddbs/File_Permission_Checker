@@ -52,8 +52,8 @@ void FileCheck::PrintResult(){
             break;
         case Status::WARN://수동 진단 필요
             printf("Diagnosis Result: Manual Inspection Required\n");
-            if(special_perm){
-                printf("Setuid/ Setgid/ Sticky bit exist!");
+            if(special_perm){//특수 권한이 존재하는 경우
+                printf("Setuid/ Setgid/ Sticky bit exist!\n");
             }
             break;
     };
