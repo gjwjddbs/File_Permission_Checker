@@ -22,6 +22,8 @@ class FileCheck{
         FileCheck(std::string fileName, unsigned long standard);
         //파일 존재 유무
         static bool file_exist(std::string fileName);
+        //파일 권한 확인
+        void file_perm();
         //권한 확인
         void perm_check(unsigned long standard);
         //결과 출력

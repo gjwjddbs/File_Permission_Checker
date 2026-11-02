@@ -27,6 +27,9 @@ int main(int argc,char **argv) {
 
     FileCheck *file = new FileCheck(fileName,standard);
 
+    //파일 권한 확인
+    file->file_perm();
+
     //파일 권한 검사
     file->perm_check(standard);
         

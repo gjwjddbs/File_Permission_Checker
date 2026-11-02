@@ -16,28 +16,33 @@ bool FileCheck::file_exist(std::string fileName){
     return stat(fileName.c_str(),&fileInfo)==0;
 };
 
+//파일 권한 확인
+void FileCheck::file_perm(){
+    struct stat fileInfo;
+    if(stat(this->filename.c_str(),&fileInfo)!=0) return;
+    this->perm = fileInfo.st_mode & 07777;
+};
+
 //권한 검사
 void FileCheck::perm_check(unsigned long standard){
-    struct stat st;
     
-    if (stat(this->filename.c_str(), &st) != 0) return;
-    
-    this->perm=st.st_mode&07777;//파일 권한
-
     unsigned long special = this->perm&07000;//특수 권한 존재 유무
     unsigned long basic = this->perm&0777;//일반 권한 존재 유무
 
-    if (special!=0) {// setuid/setgid/Stickybit: 수동 확인
-        status = Status::WARN;
-        special_perm=true;
-        return;
-    }
-    if ((basic & ~standard) == 0){// 기준을 통과하는 경우
+    if ((basic & ~standard) == 0 && special==0){// 기준을 통과하는 경우
         this->status=Status::PASS;
         return;
     }
-    
-    this->status=Status::FAIL;
+
+    if((basic & ~standard) != 0 && special==0){
+        this->status=Status::FAIL;//기준을 통과하지 못하는 경우
+        return;
+    }
+
+    if (special!=0) {// setuid/setgid/Stickybit: 수동 확인
+        this->special_perm=true;
+    }
+    this->status = Status::WARN;
 };    
 
 //결과 출력
@@ -52,7 +57,7 @@ void FileCheck::PrintResult(){
             break;
         case Status::WARN://수동 진단 필요
             printf("Diagnosis Result: Manual Inspection Required\n");
-            if(special_perm){//특수 권한이 존재하는 경우
+            if(this->special_perm){//특수 권한이 존재하는 경우
                 printf("Setuid/ Setgid/ Sticky bit exist!\n");
             }
             break;
