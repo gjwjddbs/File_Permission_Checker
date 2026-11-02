@@ -32,7 +32,7 @@
 > <img width="389" height="137" alt="image" src="https://github.com/user-attachments/assets/4a1fb043-cf39-4cc6-b8a3-ae433389c180" />
 - 파일의 권한이 권장 기준보다 많은 권한을 가지는 경우, 취약으로 판단하고 현재 파일의 권한과 권한 변경 메시지를 출력한다.
 ### 수동 진단 필요
-> <img width="613" height="105" alt="image" src="https://github.com/user-attachments/assets/2b899a0d-8e1e-487d-94de-2a1a4365bb9d" />
+> <img width="377" height="116" alt="image" src="https://github.com/user-attachments/assets/fd96ad79-b00d-4fd1-94ae-37ca53ae5932" />
 - 파일에 특수 권한(SUID/SGID/Sticky Bit)을 가지는 경우, 수동 진단이 필요하다고 판단한다.
 </br>
 
